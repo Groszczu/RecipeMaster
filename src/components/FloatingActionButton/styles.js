@@ -8,14 +8,13 @@ export default StyleSheet.create({
   },
   button: {
     width: '100%',
-    backgroundColor: '#fec111',
     justifyContent: 'center',
     alignItems: 'center',
     elevation: 2,
   },
   touchable: {
     borderRadius: 1000,
-    backgroundColor: '#fec111',
+    backgroundColor: null,
   },
   plus: {
     height: '30%',

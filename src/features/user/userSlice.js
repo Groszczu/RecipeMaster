@@ -1,9 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  name: null,
   id: null,
-  token: null,
+  name: null,
+  picture: null,
+  loggedIn: false,
   error: false,
   message: null,
 };
@@ -15,32 +16,24 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     logIn: (state) => clearError(state),
-    logInSuccessful: (state, { payload: { token } }) => {
-      state.token = token;
-    },
-    logInError: (state, { payload }) => {
-      state.error = true;
-      state.message = payload;
-    },
-    fetchUser: (state) => clearError(state),
-    fetchUserSuccessful: (state, { payload: { name, id } }) => {
-      state.name = name;
-      state.id = id;
-    },
-    logOut: (state) => clearError(state),
-    logOutSuccessful: () => initialState,
+    logInSuccessful: (state, { payload: { id, name, picture } }) => ({
+      ...state,
+      id,
+      name,
+      picture,
+      loggedIn: true,
+      error: false,
+      message: null,
+    }),
+    logInError: (state, { payload }) => ({
+      ...state,
+      error: true,
+      message: payload,
+    }),
   },
 });
 
 const { actions, reducer } = userSlice;
 
-export const {
-  logIn,
-  logInSuccessful,
-  logInError,
-  fetchUser,
-  fetchUserSuccessful,
-  logOut,
-  logOutSuccessful,
-} = actions;
+export const { logIn, logInSuccessful, logInError } = actions;
 export default reducer;

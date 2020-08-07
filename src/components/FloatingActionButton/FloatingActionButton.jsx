@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import CircleView from '../../../../components/CircleView';
+import CircleView from '../CircleView';
 import { BlurView } from 'expo-blur';
 import {
   TouchableHighlight,
@@ -11,17 +11,23 @@ import {
 import styles from './styles';
 import FloatingActionButtonItem from './FloatingActionButtonItem';
 
-const plusIcon = require('./../../../../../assets/plusIcon.png');
+const plusIcon = require('./../../../assets/plusIcon.png');
 
-const AnimatedBlurView = Animated.createAnimatedComponent(BlurView);
-
-const FloatingActionButton = ({ style, open, onPress, onBlur, items }) => {
+const FloatingActionButton = ({
+  style,
+  backgroundColor,
+  open,
+  onPress,
+  onBlur,
+  items,
+  animationDuration,
+}) => {
   const openAnimationValue = useRef(new Animated.Value(open ? 1 : 0)).current;
 
   useEffect(() => {
     Animated.timing(openAnimationValue, {
       toValue: open ? 1 : 0,
-      duration: 250,
+      duration: animationDuration || 250,
       useNativeDriver: true,
     }).start();
   }, [open]);
@@ -36,17 +42,12 @@ const FloatingActionButton = ({ style, open, onPress, onBlur, items }) => {
     outputRange: ['200%', '0%'],
   });
 
-  const blurAnimation = openAnimationValue.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0, 100],
-  });
-
   const itemsTransform = { translateX: itemsPositionAnimation };
 
   return (
-    <AnimatedBlurView
+    <BlurView
       tint={'light'}
-      intensity={blurAnimation}
+      intensity={open ? 100 : 0}
       style={styles.fillScreen}
     >
       <TouchableOpacity
@@ -60,7 +61,7 @@ const FloatingActionButton = ({ style, open, onPress, onBlur, items }) => {
               <FloatingActionButtonItem key={i} {...{ item, itemsTransform }} />
             ))}
           <TouchableHighlight style={styles.touchable} onPress={onPress}>
-            <CircleView style={styles.button}>
+            <CircleView style={[styles.button, { backgroundColor }]}>
               <Animated.Image
                 style={[
                   styles.plus,
@@ -72,7 +73,7 @@ const FloatingActionButton = ({ style, open, onPress, onBlur, items }) => {
           </TouchableHighlight>
         </View>
       </TouchableOpacity>
-    </AnimatedBlurView>
+    </BlurView>
   );
 };
 

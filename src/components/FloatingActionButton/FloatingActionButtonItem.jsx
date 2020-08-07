@@ -1,12 +1,7 @@
 import React from 'react';
-import {
-  Animated,
-  StyleSheet,
-  View,
-  Text,
-  TouchableHighlight,
-} from 'react-native';
-import CircleView from '../../../../components/CircleView';
+import { Animated, StyleSheet, View, TouchableHighlight } from 'react-native';
+import CircleView from '../CircleView';
+import Paragraph from '../Paragraph';
 
 const FloatingActionButtonItem = ({ item, itemsTransform }) => {
   const { title, backgroundColor, icon, onPress } = item;
@@ -14,7 +9,7 @@ const FloatingActionButtonItem = ({ item, itemsTransform }) => {
     <Animated.View style={[styles.container, { transform: [itemsTransform] }]}>
       {title && (
         <View style={styles.titleContainer}>
-          <Text>{title}</Text>
+          <Paragraph>{title}</Paragraph>
         </View>
       )}
       <TouchableHighlight style={styles.touchable} onPress={onPress}>
@@ -30,8 +25,6 @@ const FloatingActionButtonItem = ({ item, itemsTransform }) => {
     </Animated.View>
   );
 };
-
-export default FloatingActionButtonItem;
 
 const styles = StyleSheet.create({
   container: {
@@ -61,3 +54,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
+
+export default FloatingActionButtonItem;

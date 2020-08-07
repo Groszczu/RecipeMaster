@@ -1,5 +1,7 @@
-import userReducer from "../features/user/userSlice";
+import userReducer from '../features/user/userSlice';
+import recipesReducer from '../features/recipes/recipesSlice';
 
 export default {
-    user: userReducer
+  user: userReducer,
+  recipes: recipesReducer,
 };

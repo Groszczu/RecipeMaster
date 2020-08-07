@@ -1,23 +1,28 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import HomeScreen from './src/features/home/components/HomeScreen';
 import { Provider } from 'react-redux';
 import store from './src/app/store';
+import colors, { primary } from './src/styles/colors';
+import RecipesListScreen from './src/features/recipes/components/RecipesListScreen/RecipesListScreen';
+import LoggedUserFooter from './src/features/user/components/LoggedUserFooter';
+import RecipeScreen from './src/features/recipes/components/RecipeScreen';
 
 const Stack = createStackNavigator();
 
 function App() {
   return (
-    <NavigationContainer>
+    <NavigationContainer style={styles.container}>
       <Stack.Navigator
         initialRouteName={'Home'}
         screenOptions={{
           headerStyle: styles.navigationHeader,
           headerTitleStyle: styles.navigationTitle,
+          headerTintColor: '#fff',
         }}
       >
         <Stack.Screen
@@ -25,7 +30,14 @@ function App() {
           component={HomeScreen}
           options={{ title: 'RecipeMaster' }}
         />
+        <Stack.Screen name={'Recipes'} component={RecipesListScreen} />
+        <Stack.Screen
+          name={'Recipe'}
+          component={RecipeScreen}
+          options={({ route }) => ({ title: `${route.params.title} Recipe!` })}
+        />
       </Stack.Navigator>
+      <LoggedUserFooter />
       <StatusBar style='auto' />
     </NavigationContainer>
   );
@@ -40,13 +52,13 @@ export default () => (
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: colors.background,
     justifyContent: 'center',
   },
   navigationHeader: {
-    backgroundColor: '#ef4438',
+    backgroundColor: colors.primary,
   },
   navigationTitle: {
-    color: '#fff',
+    color: colors.text.white,
   },
 });
