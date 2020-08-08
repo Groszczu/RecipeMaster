@@ -12,11 +12,11 @@ const LoggedUserFooter = () => {
       <Paragraph small center>
         Logged as {userName}{' '}
       </Paragraph>
-      {picture?.data.url && (
+      {picture?.url && (
         <Image
-          source={{ uri: picture.data.url }}
-          width={picture.data.width}
-          height={picture.data.height}
+          source={{ uri: picture.url }}
+          width={picture.width}
+          height={picture.height}
           style={styles.picture}
         />
       )}

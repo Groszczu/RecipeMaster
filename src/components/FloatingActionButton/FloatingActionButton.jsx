@@ -6,6 +6,7 @@ import {
   View,
   TouchableOpacity,
   Animated,
+  StyleSheet,
 } from 'react-native';
 
 import styles from './styles';
@@ -48,11 +49,11 @@ const FloatingActionButton = ({
     <BlurView
       tint={'light'}
       intensity={open ? 100 : 0}
-      style={styles.fillScreen}
+      style={StyleSheet.absoluteFill}
     >
       <TouchableOpacity
         activeOpacity={1}
-        style={styles.fillScreen}
+        style={StyleSheet.absoluteFill}
         onPress={onBlur}
       >
         <View style={[styles.container, style]}>

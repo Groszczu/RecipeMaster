@@ -1,5 +1,5 @@
 import { ofType } from 'redux-observable';
-import { flatMap, map, withLatestFrom, filter } from 'rxjs/operators';
+import { map, withLatestFrom, filter, mergeMapTo } from 'rxjs/operators';
 import { logIn, logInSuccessful, logInError } from './userSlice';
 import facebook from '../../services/facebook';
 import { getIsLoggedIn } from './selectors';
@@ -9,7 +9,7 @@ export const logInEpic = (action$, state$) =>
     ofType(logIn.type),
     withLatestFrom(state$),
     filter(([, state]) => !getIsLoggedIn(state)),
-    flatMap(() => facebook.logIn()),
+    mergeMapTo(facebook.logIn()),
     map((response) => {
       if (!response.error) {
         const { id, name, picture } = response.user;

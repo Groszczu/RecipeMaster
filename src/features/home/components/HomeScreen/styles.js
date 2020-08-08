@@ -1,17 +1,19 @@
 import { StyleSheet } from 'react-native';
+import { HEADER_HIGHT } from '../../../../styles/shared';
 
 export default StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     alignItems: 'center',
+    paddingBottom: HEADER_HIGHT,
   },
   logo: {
-    marginTop: '50%',
     width: '55%',
   },
   dropdownButton: {
     width: '20%',
+    maxWidth: 145,
     position: 'absolute',
     bottom: 0,
     right: 0,

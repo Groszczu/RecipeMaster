@@ -1,13 +1,14 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { logIn } from '../user/userSlice';
 import { useNavigation } from '@react-navigation/native';
 import { getIsLoggedIn, getIsError, getErrorMessage } from '../user/selectors';
+import useModalState from '../../hooks/useModalState';
 
 const useHomeScreenViewModel = () => {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const toggleDropdown = () => setDropdownOpen((value) => !value);
-  const closeDropdown = () => dropdownOpen && setDropdownOpen(false);
+  const [fabOpen, setFabOpen] = useState(false);
+  const toggleFab = () => setFabOpen((value) => !value);
+  const closeFab = () => fabOpen && setFabOpen(false);
 
   const dispatch = useDispatch();
   const logInWithFacebook = () => dispatch(logIn());
@@ -19,15 +20,21 @@ const useHomeScreenViewModel = () => {
   const error = useSelector(getIsError);
   const errorMessage = useSelector(getErrorMessage);
 
+  const [showErrorModal, closeErrorModal] = useModalState(error);
+  const [showLoggedInModal, closeLoggedInModal] = useModalState(loggedIn);
+
   return {
-    dropdownOpen,
-    toggleDropdown,
-    closeDropdown,
+    fabOpen,
+    toggleFab,
+    closeFab,
     loggedIn,
-    error,
     errorMessage,
     logInWithFacebook,
     navigateToRecipes,
+    showLoggedInModal,
+    closeLoggedInModal,
+    showErrorModal,
+    closeErrorModal,
   };
 };
 

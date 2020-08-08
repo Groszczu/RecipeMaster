@@ -2,18 +2,25 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import Paragraph from './Paragraph';
 
+const CONTAINER_PADDING = 6;
 const Section = ({ title, contentWidth, children }) => {
   return (
     <View style={styles.container}>
-      <Paragraph style={styles.title}>{title}:</Paragraph>
-      <View style={[styles.content, { width: contentWidth }]}>{children}</View>
+      <Paragraph style={styles.title} bold={true}>
+        {title}:
+      </Paragraph>
+      <View
+        style={[styles.content, contentWidth ? { width: contentWidth } : null]}
+      >
+        {children}
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    padding: '6%',
+    padding: `${CONTAINER_PADDING}%`,
     paddingBottom: 0,
   },
   title: {
@@ -21,7 +28,7 @@ const styles = StyleSheet.create({
   },
   content: {
     alignSelf: 'center',
-    width: '88%',
+    width: `${100 - 2 * CONTAINER_PADDING}%`,
   },
 });
 

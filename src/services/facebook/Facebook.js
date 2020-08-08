@@ -1,14 +1,15 @@
 import * as FacebookApi from 'expo-facebook';
-import { catchError, flatMap, map } from 'rxjs/operators';
+import { catchError, map, mergeMap, switchMap } from 'rxjs/operators';
 import { of, from } from 'rxjs';
+import { ajax } from 'rxjs/ajax';
 import Constants from 'expo-constants';
 
-const AppID = Constants.manifest.facebookAppId;
+const AppId = Constants.manifest.facebookAppId;
 
 class Facebook {
   logIn() {
-    return from(FacebookApi.initializeAsync(AppID)).pipe(
-      flatMap(() =>
+    return from(FacebookApi.initializeAsync(AppId)).pipe(
+      mergeMap(() =>
         FacebookApi.logInWithReadPermissionsAsync({
           permissions: ['public_profile'],
         })
@@ -23,18 +24,22 @@ class Facebook {
 
         return token;
       }),
-      flatMap((token) => this._getUserData(token)),
-      flatMap((response) => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw Error('Failed to fetch user data');
-      }),
-      map((user) => ({
-        error: false,
-        message: null,
-        user,
-      })),
+      switchMap((token) =>
+        this._getUserData(token).pipe(
+          map((user) => ({
+            error: false,
+            message: null,
+            user,
+          })),
+          catchError(() =>
+            of({
+              error: true,
+              message: 'Failed to fetch user data',
+              user: null,
+            })
+          )
+        )
+      ),
       catchError((err) => of({ error: true, message: err.message, user: null }))
     );
   }
@@ -42,7 +47,7 @@ class Facebook {
   _getUserData(token) {
     const url = `https://graph.facebook.com/me?fields=id,name,picture&access_token=${token}`;
 
-    return fetch(url);
+    return ajax.getJSON(url);
   }
 }
 

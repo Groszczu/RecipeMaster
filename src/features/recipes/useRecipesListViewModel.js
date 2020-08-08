@@ -8,6 +8,7 @@ import {
   getErrorMessage,
 } from './selectors';
 import { useNavigation } from '@react-navigation/native';
+import useModalState from '../../hooks/useModalState';
 
 const useRecipesViewModel = () => {
   const recipes = useSelector(getRecipes);
@@ -17,15 +18,26 @@ const useRecipesViewModel = () => {
 
   const dispatch = useDispatch();
 
+  const [showErrorModal, closeErrorModal] = useModalState(error);
+
   const fetchRecipes = () => dispatch(getRecipesAction());
   const navigation = useNavigation();
-  const navigateToRecipe = (recipe) => navigation.navigate('Recipe', recipe);
+  const navigateToRecipe = (recipe) =>
+    navigation.navigate('Recipe', { id: recipe.id, title: recipe.title });
 
   useEffect(() => {
     fetchRecipes();
   }, []);
 
-  return { recipes, loading, error, message, fetchRecipes, navigateToRecipe };
+  return {
+    recipes,
+    loading,
+    showErrorModal,
+    closeErrorModal,
+    message,
+    fetchRecipes,
+    navigateToRecipe,
+  };
 };
 
 export default useRecipesViewModel;

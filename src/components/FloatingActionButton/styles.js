@@ -20,11 +20,4 @@ export default StyleSheet.create({
     height: '30%',
     aspectRatio: 1,
   },
-  fillScreen: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    bottom: 0,
-    left: 0,
-  },
 });

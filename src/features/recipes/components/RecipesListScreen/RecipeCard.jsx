@@ -2,13 +2,14 @@ import React from 'react';
 import { View, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import Header from '../../../../components/Header';
 import colors from '../../../../styles/colors';
+import shared from '../../../../styles/shared';
 
 const RecipeCard = ({ recipe, onPress }) => {
   const { title, imgs } = recipe;
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.touchable} onPress={onPress}>
-        <View style={styles.card}>
+        <View style={[shared.screenBackground, styles.card]}>
           <Image source={{ uri: imgs[0] }} style={styles.image} />
           <Header style={styles.header}>{title}</Header>
         </View>
@@ -35,10 +36,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
 
     overflow: 'hidden',
-    borderColor: colors.text.grayDark,
+    borderColor: colors.secondary,
     borderStyle: 'solid',
     borderWidth: StyleSheet.hairlineWidth,
-    backgroundColor: colors.text.white,
     borderRadius: 10,
   },
   header: {

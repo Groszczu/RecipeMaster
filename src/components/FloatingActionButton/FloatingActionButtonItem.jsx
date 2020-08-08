@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     marginBottom: '25%',
   },
   circle: {
-    width: '100%',
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },

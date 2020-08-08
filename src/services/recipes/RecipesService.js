@@ -1,5 +1,5 @@
 import { fromFetch } from 'rxjs/fetch';
-import { catchError, delay } from 'rxjs/operators';
+import { catchError, timeout } from 'rxjs/operators';
 import { of } from 'rxjs';
 
 const BASE_URL = 'https://moodup.team/test/info.php';
@@ -11,8 +11,7 @@ export default class RecipesService {
         if (response.ok) {
           const responseJson = await response.json();
 
-          // const recipes = await response.json() return { recipes }
-          // add ids and mock recipes to imitate API response
+          // mock recipes to imitate large API response
           const mockedRecipes = Array(11)
             .fill(responseJson)
             .map((recipe, i) => ({
@@ -33,6 +32,7 @@ export default class RecipesService {
         };
       },
     }).pipe(
+      timeout(5000),
       catchError((err) =>
         of({
           error: true,

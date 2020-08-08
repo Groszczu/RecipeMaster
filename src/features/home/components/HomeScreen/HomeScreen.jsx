@@ -1,31 +1,37 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, Image } from 'react-native';
 import Logo from '../Logo/Logo';
 import FloatingActionButton from '../../../../components/FloatingActionButton';
 import styles from './styles';
 import { FontAwesome } from '@expo/vector-icons';
-import useHomeScreenViewModel from '../../useHomeScreenViewModel';
 import colors from '../../../../styles/colors';
-import useErrorAlert from '../../../../hooks/useErrorAlert';
+import shared from '../../../../styles/shared';
+import { scale } from '../../../../styles/scale';
+import AlertModal from '../../../../components/AlertModal';
 
-const HomeScreen = () => {
-  const {
-    dropdownOpen,
-    toggleDropdown,
-    closeDropdown,
-    loggedIn,
-    error,
-    errorMessage,
-    logInWithFacebook,
-    navigateToRecipes,
-  } = useHomeScreenViewModel();
-
-  useErrorAlert(error, 'Error', errorMessage);
-
+const HomeScreen = ({
+  fabOpen,
+  toggleFab,
+  closeFab,
+  loggedIn,
+  showErrorModal,
+  closeErrorModal,
+  showLoggedInModal,
+  closeLoggedInModal,
+  errorMessage,
+  logInWithFacebook,
+  navigateToRecipes,
+}) => {
   const items = [
     {
       title: 'Get the recipe',
       backgroundColor: '#f44336',
+      icon: (
+        <Image
+          source={require('../../../../../assets/feature.png')}
+          style={{ flex: 0.6, aspectRatio: 1 }}
+        />
+      ),
       onPress: navigateToRecipes,
     },
   ];
@@ -34,20 +40,32 @@ const HomeScreen = () => {
     items.push({
       title: 'Zaloguj przez Facebooka',
       backgroundColor: '#01579b',
-      icon: <FontAwesome name={'facebook'} size={32} color={'#fff'} />,
+      icon: <FontAwesome name={'facebook'} size={scale(26)} color={'#fff'} />,
       onPress: logInWithFacebook,
     });
 
   return (
     <>
-      <View style={styles.container}>
+      <AlertModal
+        visible={showErrorModal}
+        onRequestClose={closeErrorModal}
+        title={'Error'}
+        message={errorMessage}
+      />
+      <AlertModal
+        visible={showLoggedInModal}
+        onRequestClose={closeLoggedInModal}
+        title={'Logged in successfully'}
+      />
+
+      <View style={[shared.screenBackground, styles.container]}>
         <Logo style={styles.logo} />
         <FloatingActionButton
           style={styles.dropdownButton}
           backgroundColor={colors.secondary}
-          open={dropdownOpen}
-          onPress={toggleDropdown}
-          onBlur={closeDropdown}
+          open={fabOpen}
+          onPress={toggleFab}
+          onBlur={closeFab}
           items={items}
         />
       </View>

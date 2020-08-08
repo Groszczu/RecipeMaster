@@ -7,10 +7,12 @@ import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './src/features/home/components/HomeScreen';
 import { Provider } from 'react-redux';
 import store from './src/app/store';
-import colors, { primary } from './src/styles/colors';
-import RecipesListScreen from './src/features/recipes/components/RecipesListScreen/RecipesListScreen';
+import colors from './src/styles/colors';
+import RecipesListScreen from './src/features/recipes/components/RecipesListScreen';
 import LoggedUserFooter from './src/features/user/components/LoggedUserFooter';
-import RecipeScreen from './src/features/recipes/components/RecipeScreen';
+import RecipeDetailsScreen from './src/features/recipes/components/RecipeDetailsScreen';
+import { verticalScale } from './src/styles/scale';
+import { HEADER_HIGHT } from './src/styles/shared';
 
 const Stack = createStackNavigator();
 
@@ -33,7 +35,7 @@ function App() {
         <Stack.Screen name={'Recipes'} component={RecipesListScreen} />
         <Stack.Screen
           name={'Recipe'}
-          component={RecipeScreen}
+          component={RecipeDetailsScreen}
           options={({ route }) => ({ title: `${route.params.title} Recipe!` })}
         />
       </Stack.Navigator>
@@ -57,8 +59,10 @@ const styles = StyleSheet.create({
   },
   navigationHeader: {
     backgroundColor: colors.primary,
+    height: HEADER_HIGHT,
   },
   navigationTitle: {
     color: colors.text.white,
+    fontSize: verticalScale(18),
   },
 });
