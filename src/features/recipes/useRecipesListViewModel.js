@@ -1,5 +1,6 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 import { getRecipes as getRecipesAction } from './recipesSlice';
 import {
   getRecipes,
@@ -7,7 +8,6 @@ import {
   getIsError,
   getErrorMessage,
 } from './selectors';
-import { useNavigation } from '@react-navigation/native';
 import useModalState from '../../hooks/useModalState';
 
 const useRecipesViewModel = () => {
@@ -17,11 +17,11 @@ const useRecipesViewModel = () => {
   const message = useSelector(getErrorMessage);
 
   const dispatch = useDispatch();
+  const navigation = useNavigation();
 
   const [showErrorModal, closeErrorModal] = useModalState(error);
 
   const fetchRecipes = () => dispatch(getRecipesAction());
-  const navigation = useNavigation();
   const navigateToRecipe = (recipe) =>
     navigation.navigate('Recipe', { id: recipe.id, title: recipe.title });
 

@@ -1,5 +1,5 @@
 import HomeScreen from './HomeScreen';
 import useHomeScreenViewModel from '../../useHomeScreenViewModel';
-import withViewModel from '../../../../components/hoc/withViewModel';
+import withViewModel from '../../../../hoc/withViewModel';
 
 export default withViewModel(HomeScreen, useHomeScreenViewModel);

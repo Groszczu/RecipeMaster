@@ -1,8 +1,8 @@
 import React from 'react';
 
-// withVieModel hoc pass all properties returned from viewModelHook to ViewComponent
-// it let you use MVVM patter and test ViewComponent without tight coupling
-// to work correctly viewModelHook must return object with properties matching ViewComponent props
+// withVieModel hoc passes all properties returned from viewModelHook to ViewComponent
+// it let you use MVVM pattern and test ViewComponent without tight coupling.
+// To work correctly viewModelHook must return object with properties matching ViewComponent props
 const withViewModel = (ViewComponent, viewModelHook, viewModelParams) => (
   otherProps
 ) => {

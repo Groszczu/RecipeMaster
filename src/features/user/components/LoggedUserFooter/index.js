@@ -1,4 +1,4 @@
-import withViewModel from '../../../../components/hoc/withViewModel';
+import withViewModel from '../../../../hoc/withViewModel';
 import LoggedUserFooter from './LoggedUserFooter';
 import useUserViewModel from '../../useUserViewModel';
 

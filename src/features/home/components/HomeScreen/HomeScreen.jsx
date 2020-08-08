@@ -10,6 +10,8 @@ import shared from '../../../../styles/shared';
 import { scale } from '../../../../styles/scale';
 import AlertModal from '../../../../components/AlertModal';
 
+const featureIcon = require('../../../../../assets/feature.png');
+
 const HomeScreen = ({
   fabOpen,
   toggleFab,
@@ -28,10 +30,7 @@ const HomeScreen = ({
       title: 'Get the recipe',
       backgroundColor: '#f44336',
       icon: (
-        <Image
-          source={require('../../../../../assets/feature.png')}
-          style={{ flex: 0.6, aspectRatio: 1 }}
-        />
+        <Image source={featureIcon} style={{ flex: 0.6, aspectRatio: 1 }} />
       ),
       onPress: navigateToRecipes,
     },
