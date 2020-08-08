@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { logIn } from '../user/userSlice';
 import { useNavigation } from '@react-navigation/native';
@@ -8,7 +8,7 @@ import useModalState from '../../hooks/useModalState';
 const useHomeScreenViewModel = () => {
   const [fabOpen, setFabOpen] = useState(false);
   const toggleFab = () => setFabOpen((value) => !value);
-  const closeFab = () => fabOpen && setFabOpen(false);
+  const closeFab = () => setFabOpen(false);
 
   const dispatch = useDispatch();
   const logInWithFacebook = () => dispatch(logIn());

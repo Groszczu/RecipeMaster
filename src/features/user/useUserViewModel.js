@@ -1,5 +1,5 @@
-const { useSelector } = require('react-redux');
-const { getUserName, getIsLoggedIn, getPicture } = require('./selectors');
+import { useSelector } from 'react-redux';
+import { getUserName, getIsLoggedIn, getPicture } from './selectors';
 
 const useUserViewModel = () => {
   const userName = useSelector(getUserName);

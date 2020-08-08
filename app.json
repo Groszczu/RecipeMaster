@@ -5,6 +5,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
+    "entryPoint": "./src/app/App.js",
     "facebookScheme": "fb347107810025882",
     "facebookAppId": "347107810025882",
     "facebookDisplayName": "recipe-master",
