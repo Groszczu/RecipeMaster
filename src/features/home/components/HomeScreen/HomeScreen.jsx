@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { View, Image } from 'react-native';
 import Logo from '../Logo/Logo';
 import FloatingActionButton from '../../../../components/FloatingActionButton';
@@ -71,6 +72,25 @@ const HomeScreen = ({
       </View>
     </>
   );
+};
+
+HomeScreen.propTypes = {
+  fabOpen: PropTypes.bool.isRequired,
+  toggleFab: PropTypes.func.isRequired,
+  closeFab: PropTypes.func,
+
+  loggedIn: PropTypes.bool,
+
+  showErrorModal: PropTypes.bool.isRequired,
+  closeErrorModal: PropTypes.func.isRequired,
+
+  showLoggedInModal: PropTypes.bool.isRequired,
+  closeLoggedInModal: PropTypes.func.isRequired,
+
+  errorMessage: PropTypes.string,
+
+  logInWithFacebook: PropTypes.func.isRequired,
+  navigateToRecipes: PropTypes.func.isRequired,
 };
 
 export default HomeScreen;

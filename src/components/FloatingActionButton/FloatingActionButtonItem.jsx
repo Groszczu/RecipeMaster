@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Animated, StyleSheet, View, TouchableHighlight } from 'react-native';
 import CircleView from '../CircleView';
 import Paragraph from '../Paragraph';
@@ -24,6 +25,16 @@ const FloatingActionButtonItem = ({ item, itemsTransform }) => {
       </TouchableHighlight>
     </Animated.View>
   );
+};
+
+FloatingActionButtonItem.propTypes = {
+  item: PropTypes.shape({
+    title: PropTypes.string,
+    backgroundColor: PropTypes.string,
+    icon: PropTypes.element,
+    onPress: PropTypes.func,
+  }).isRequired,
+  itemsTransform: PropTypes.object,
 };
 
 const styles = StyleSheet.create({

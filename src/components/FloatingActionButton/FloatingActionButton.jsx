@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import CircleView from '../CircleView';
 import { BlurView } from 'expo-blur';
 import {
@@ -7,6 +8,7 @@ import {
   TouchableOpacity,
   Animated,
   StyleSheet,
+  ViewPropTypes,
 } from 'react-native';
 
 import styles from './styles';
@@ -15,10 +17,10 @@ import FloatingActionButtonItem from './FloatingActionButtonItem';
 const plusIcon = require('./../../../assets/plusIcon.png');
 
 const FloatingActionButton = ({
-  style,
-  backgroundColor,
   open,
   onPress,
+  style,
+  backgroundColor,
   onBlur,
   items,
   animationDuration,
@@ -78,6 +80,16 @@ const FloatingActionButton = ({
       </TouchableOpacity>
     </BlurView>
   );
+};
+
+FloatingActionButton.propTypes = {
+  open: PropTypes.bool.isRequired,
+  onPress: PropTypes.func.isRequired,
+  style: ViewPropTypes.style,
+  backgroundColor: PropTypes.string,
+  onBlur: PropTypes.func,
+  items: PropTypes.array,
+  animationDuration: PropTypes.number,
 };
 
 export default FloatingActionButton;

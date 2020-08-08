@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Modal, TouchableOpacity, StyleSheet, View } from 'react-native';
 import Paragraph from './Paragraph';
 import colors from '../styles/colors';
@@ -40,6 +41,16 @@ const AlertModal = ({ visible, onRequestClose, title, message, buttons }) => {
       </BlurView>
     </Modal>
   );
+};
+
+AlertModal.propTypes = {
+  visible: PropTypes.bool.isRequired,
+  onRequestClose: PropTypes.func.isRequired,
+  title: PropTypes.string,
+  message: PropTypes.string,
+  buttons: PropTypes.arrayOf(
+    PropTypes.shape({ title: PropTypes.string, onPress: PropTypes.func })
+  ),
 };
 
 const styles = StyleSheet.create({

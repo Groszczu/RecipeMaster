@@ -16,7 +16,7 @@ class Facebook {
       ),
       map(({ type, token }) => {
         if (type === 'cancel') {
-          throw Error('Log in canceled');
+          throw Error('Login canceled');
         }
         if (type !== 'success' || !token) {
           throw Error('Unknown error');

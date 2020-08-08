@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { ScrollView, RefreshControl } from 'react-native';
 import styles from './styles';
 import RecipeCard from './RecipeCard';
@@ -40,6 +41,22 @@ const RecipesListScreen = ({
       </ScrollView>
     </>
   );
+};
+
+RecipesListScreen.propTypes = {
+  recipes: PropTypes.arrayOf(
+    PropTypes.shape({ id: PropTypes.number.isRequired })
+  ).isRequired,
+
+  loading: PropTypes.bool,
+
+  showErrorModal: PropTypes.bool.isRequired,
+  closeErrorModal: PropTypes.func.isRequired,
+
+  message: PropTypes.string,
+
+  fetchRecipes: PropTypes.func.isRequired,
+  navigateToRecipe: PropTypes.func.isRequired,
 };
 
 export default RecipesListScreen;

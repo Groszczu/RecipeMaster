@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { View, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import Header from '../../../../components/Header';
 import colors from '../../../../styles/colors';
@@ -16,6 +17,14 @@ const RecipeCard = ({ recipe, onPress }) => {
       </TouchableOpacity>
     </View>
   );
+};
+
+RecipeCard.propTypes = {
+  recipe: PropTypes.shape({
+    title: PropTypes.string,
+    imgs: PropTypes.arrayOf(PropTypes.string),
+  }).isRequired,
+  onPress: PropTypes.func.isRequired,
 };
 
 const styles = StyleSheet.create({

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { ScrollView, View, Image, TouchableOpacity } from 'react-native';
 import Paragraph from '../../../../components/Paragraph';
 import styles from './styles';
@@ -82,6 +83,30 @@ const RecipeDetailsScreen = ({
       </ScrollView>
     </>
   );
+};
+
+RecipeDetailsScreen.propTypes = {
+  recipe: PropTypes.shape({
+    title: PropTypes.string,
+    description: PropTypes.string,
+    ingredient: PropTypes.arrayOf(PropTypes.string),
+    preparing: PropTypes.arrayOf(PropTypes.string),
+    imgs: PropTypes.arrayOf(PropTypes.string),
+  }).isRequired,
+
+  saveToCameraRoll: PropTypes.func,
+
+  showSavedModal: PropTypes.bool.isRequired,
+  closeSavedModal: PropTypes.func.isRequired,
+
+  showErrorModal: PropTypes.bool.isRequired,
+  closeErrorModal: PropTypes.func.isRequired,
+
+  message: PropTypes.string,
+
+  showSavePrompt: PropTypes.bool.isRequired,
+  openSavePrompt: PropTypes.func.isRequired,
+  closeSavePrompt: PropTypes.func.isRequired,
 };
 
 export default RecipeDetailsScreen;
