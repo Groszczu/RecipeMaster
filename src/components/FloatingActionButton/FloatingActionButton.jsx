@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import CircleView from '../CircleView';
 import { BlurView } from 'expo-blur';
 import {
@@ -24,13 +24,15 @@ const FloatingActionButton = ({
   animationDuration,
 }) => {
   const openAnimationValue = useRef(new Animated.Value(open ? 1 : 0)).current;
+  const [showItems, setShowItems] = useState(open);
 
   useEffect(() => {
+    open && setShowItems(true);
     Animated.timing(openAnimationValue, {
       toValue: open ? 1 : 0,
       duration: animationDuration || 250,
       useNativeDriver: true,
-    }).start();
+    }).start(() => !open && setShowItems(false));
   }, [open]);
 
   const addIconRotationAnimation = openAnimationValue.interpolate({
@@ -40,7 +42,7 @@ const FloatingActionButton = ({
 
   const itemsPositionAnimation = openAnimationValue.interpolate({
     inputRange: [0, 1],
-    outputRange: ['200%', '0%'],
+    outputRange: ['500%', '0%'],
   });
 
   const itemsTransform = { translateX: itemsPositionAnimation };
@@ -57,7 +59,7 @@ const FloatingActionButton = ({
         onPress={onBlur}
       >
         <View style={[styles.container, style]}>
-          {open &&
+          {showItems &&
             items.map((item, i) => (
               <FloatingActionButtonItem key={i} {...{ item, itemsTransform }} />
             ))}

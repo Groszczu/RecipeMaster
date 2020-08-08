@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 
 const CircleView = ({ children, style }) => {
-  return <View style={[styles.circle, style]}>{children}</View>;
+  return <View style={[style, styles.circle]}>{children}</View>;
 };
 
 const styles = StyleSheet.create({
