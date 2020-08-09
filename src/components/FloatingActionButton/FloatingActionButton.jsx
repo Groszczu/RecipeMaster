@@ -56,6 +56,7 @@ const FloatingActionButton = ({
       style={StyleSheet.absoluteFill}
     >
       <TouchableOpacity
+        accessible={false}
         activeOpacity={1}
         style={StyleSheet.absoluteFill}
         onPress={onBlur}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { ScrollView, View, Image, TouchableOpacity } from 'react-native';
 import Paragraph from '../../../../components/Paragraph';
@@ -6,19 +6,24 @@ import styles from './styles';
 import Section from '../../../../components/Section';
 import shared from '../../../../styles/shared';
 import AlertModal from '../../../../components/AlertModal';
+import useModalState from '../../../../hooks/useModalState';
 
 const RecipeDetailsScreen = ({
   recipe,
+  saved,
+  error,
+  errorMessage,
   saveToCameraRoll,
-  showSavedModal,
-  showErrorModal,
-  message,
-  closeSavedModal,
-  closeErrorModal,
-  showSavePrompt,
-  openSavePrompt,
-  closeSavePrompt,
 }) => {
+  const [showSavedModal, closeSavedModal] = useModalState(saved);
+  const [showErrorModal, closeErrorModal] = useModalState(error);
+
+  const [showSavePrompt, closeSavePrompt, openSavePrompt] = useModalState(
+    false
+  );
+
+  const imageUrlRef = useRef('');
+
   const { title, description, ingredients, preparing, imgs } = recipe;
 
   return (
@@ -31,7 +36,7 @@ const RecipeDetailsScreen = ({
         buttons={[
           {
             title: 'Yes',
-            onPress: saveToCameraRoll,
+            onPress: () => saveToCameraRoll(imageUrlRef.current),
           },
           { title: 'Cancel' },
         ]}
@@ -46,7 +51,7 @@ const RecipeDetailsScreen = ({
         visible={showErrorModal}
         onRequestClose={closeErrorModal}
         title={'Unable to save the picture'}
-        message={message}
+        message={errorMessage}
       />
 
       <ScrollView style={shared.screenBackground}>
@@ -72,7 +77,10 @@ const RecipeDetailsScreen = ({
             {imgs.map((url) => (
               <TouchableOpacity
                 key={url}
-                onPress={() => openSavePrompt(url)}
+                onPress={() => {
+                  imageUrlRef.current = url;
+                  openSavePrompt();
+                }}
                 style={styles.imageWrapper}
               >
                 <Image source={{ uri: url }} style={styles.image} />
@@ -94,19 +102,11 @@ RecipeDetailsScreen.propTypes = {
     imgs: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
 
+  saved: PropTypes.bool,
+  error: PropTypes.bool,
+  errorMessage: PropTypes.string,
+
   saveToCameraRoll: PropTypes.func,
-
-  showSavedModal: PropTypes.bool.isRequired,
-  closeSavedModal: PropTypes.func.isRequired,
-
-  showErrorModal: PropTypes.bool.isRequired,
-  closeErrorModal: PropTypes.func.isRequired,
-
-  message: PropTypes.string,
-
-  showSavePrompt: PropTypes.bool.isRequired,
-  openSavePrompt: PropTypes.func.isRequired,
-  closeSavePrompt: PropTypes.func.isRequired,
 };
 
 export default RecipeDetailsScreen;

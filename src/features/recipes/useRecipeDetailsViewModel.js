@@ -1,10 +1,13 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { getRecipeById } from './selectors';
 import { useRoute } from '@react-navigation/native';
-import { useRef, useState } from 'react';
-import useModalState from '../../hooks/useModalState';
-import cameraRoll from '../../services/cameraRoll';
-import { take } from 'rxjs/operators';
+import {
+  getIsSaved,
+  getIsSaving,
+  getIsError,
+  getErrorMessage,
+} from '../cameraRoll/selectors';
+import { savePicture } from '../cameraRoll/cameraRollSlice';
 
 const useRecipeDetailsViewModel = () => {
   const {
@@ -12,49 +15,21 @@ const useRecipeDetailsViewModel = () => {
   } = useRoute();
   const recipe = useSelector((state) => getRecipeById(state, id));
 
-  const [showSavePrompt, closeSavePrompt, openSavePrompt] = useModalState(
-    false
-  );
-  const [imageSaveState, setImageSaveState] = useState({
-    saved: false,
-    error: false,
-    message: null,
-  });
-  const closeSavedModal = () =>
-    setImageSaveState({ ...imageSaveState, saved: false });
-  const closeErrorModal = () =>
-    setImageSaveState({ ...imageSaveState, error: false });
+  const saved = useSelector(getIsSaved);
+  const saving = useSelector(getIsSaving);
+  const error = useSelector(getIsError);
+  const errorMessage = useSelector(getErrorMessage);
 
-  const imageUrlRef = useRef('');
-
-  const saveToCameraRoll = () =>
-    cameraRoll
-      .saveRemoteImage(imageUrlRef.current)
-      .pipe(take(1))
-      .subscribe((result) => {
-        setImageSaveState(result);
-      });
-
-  const {
-    saved: showSavedModal,
-    error: showErrorModal,
-    message,
-  } = imageSaveState;
+  const dispatch = useDispatch();
+  const saveToCameraRoll = (url) => dispatch(savePicture({ url }));
 
   return {
     recipe,
+    saved,
+    saving,
+    error,
+    errorMessage,
     saveToCameraRoll,
-    showSavedModal,
-    showErrorModal,
-    closeSavedModal,
-    closeErrorModal,
-    message,
-    showSavePrompt,
-    openSavePrompt: (url) => {
-      imageUrlRef.current = url;
-      openSavePrompt();
-    },
-    closeSavePrompt,
   };
 };
 

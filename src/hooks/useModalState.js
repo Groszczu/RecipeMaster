@@ -5,13 +5,13 @@ const useModalState = (observedValue) => {
   const closeModal = () => setVisible(false);
   const openModal = () => setVisible(true);
 
-  const mountRef = useRef(false);
+  const isMountedRef = useRef(false);
 
   useEffect(() => {
-    if (mountRef.current) {
+    if (isMountedRef.current) {
       observedValue && setVisible(observedValue);
     } else {
-      mountRef.current = true;
+      isMountedRef.current = true;
     }
   }, [observedValue]);
 

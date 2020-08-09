@@ -1,7 +1,7 @@
 import * as FileSystem from 'expo-file-system';
 import * as MediaLibrary from 'expo-media-library';
 import { from, of } from 'rxjs';
-import { flatMap, mergeMap, catchError, map, mapTo } from 'rxjs/operators';
+import { mergeMap, catchError, map, mapTo } from 'rxjs/operators';
 
 export default class CameraRoll {
   _getFileNameFromUrl(url) {

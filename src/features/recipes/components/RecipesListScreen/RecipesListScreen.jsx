@@ -5,23 +5,25 @@ import styles from './styles';
 import RecipeCard from './RecipeCard';
 import shared from '../../../../styles/shared';
 import AlertModal from '../../../../components/AlertModal';
+import useModalState from '../../../../hooks/useModalState';
 
 const RecipesListScreen = ({
   recipes,
   loading,
-  showErrorModal,
-  closeErrorModal,
-  message,
+  error,
+  errorMessage,
   fetchRecipes,
   navigateToRecipe,
 }) => {
+  const [showErrorModal, closeErrorModal] = useModalState(error);
+
   return (
     <>
       <AlertModal
         visible={showErrorModal}
         onRequestClose={closeErrorModal}
         title={'Failed to fetch recipes'}
-        message={message}
+        message={errorMessage}
       />
 
       <ScrollView
@@ -49,11 +51,8 @@ RecipesListScreen.propTypes = {
   ).isRequired,
 
   loading: PropTypes.bool,
-
-  showErrorModal: PropTypes.bool.isRequired,
-  closeErrorModal: PropTypes.func.isRequired,
-
-  message: PropTypes.string,
+  error: PropTypes.bool,
+  errorMessage: PropTypes.string,
 
   fetchRecipes: PropTypes.func.isRequired,
   navigateToRecipe: PropTypes.func.isRequired,

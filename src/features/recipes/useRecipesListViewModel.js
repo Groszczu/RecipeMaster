@@ -8,18 +8,15 @@ import {
   getIsError,
   getErrorMessage,
 } from './selectors';
-import useModalState from '../../hooks/useModalState';
 
 const useRecipesViewModel = () => {
   const recipes = useSelector(getRecipes);
   const loading = useSelector(getIsLoading);
   const error = useSelector(getIsError);
-  const message = useSelector(getErrorMessage);
+  const errorMessage = useSelector(getErrorMessage);
 
   const dispatch = useDispatch();
   const navigation = useNavigation();
-
-  const [showErrorModal, closeErrorModal] = useModalState(error);
 
   const fetchRecipes = () => dispatch(getRecipesAction());
   const navigateToRecipe = (recipe) =>
@@ -32,9 +29,8 @@ const useRecipesViewModel = () => {
   return {
     recipes,
     loading,
-    showErrorModal,
-    closeErrorModal,
-    message,
+    error,
+    errorMessage,
     fetchRecipes,
     navigateToRecipe,
   };

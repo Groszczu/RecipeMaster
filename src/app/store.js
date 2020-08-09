@@ -3,13 +3,20 @@ import rootReducer from './rootReducer';
 import { createEpicMiddleware } from 'redux-observable';
 import rootEpic from './rootEpic';
 
-const epicMiddleware = createEpicMiddleware();
+export const createAppStore = (preloadedState) => {
+  const epicMiddleware = createEpicMiddleware();
 
-const store = configureStore({
-  reducer: rootReducer,
-  middleware: getDefaultMiddleware().concat(epicMiddleware),
-});
+  const store = configureStore({
+    preloadedState,
+    reducer: rootReducer,
+    middleware: getDefaultMiddleware().concat(epicMiddleware),
+  });
 
-epicMiddleware.run(rootEpic);
+  epicMiddleware.run(rootEpic);
+
+  return store;
+};
+
+const store = createAppStore();
 
 export default store;

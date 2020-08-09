@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { View, Image } from 'react-native';
 import Logo from '../Logo/Logo';
@@ -9,22 +9,24 @@ import colors from '../../../../styles/colors';
 import shared from '../../../../styles/shared';
 import { scale } from '../../../../styles/scale';
 import AlertModal from '../../../../components/AlertModal';
+import useModalState from '../../../../hooks/useModalState';
 
 const featureIcon = require('../../../../../assets/feature.png');
 
 const HomeScreen = ({
-  fabOpen,
-  toggleFab,
-  closeFab,
   loggedIn,
-  showErrorModal,
-  closeErrorModal,
-  showLoggedInModal,
-  closeLoggedInModal,
+  error,
   errorMessage,
   logInWithFacebook,
   navigateToRecipes,
 }) => {
+  const [fabOpen, setFabOpen] = useState(false);
+  const toggleFab = () => setFabOpen(!fabOpen);
+  const closeFab = () => setFabOpen(false);
+
+  const [showErrorModal, closeErrorModal] = useModalState(error);
+  const [showLoggedInModal, closeLoggedInModal] = useModalState(loggedIn);
+
   const items = [
     {
       title: 'Get the recipe',
@@ -74,18 +76,8 @@ const HomeScreen = ({
 };
 
 HomeScreen.propTypes = {
-  fabOpen: PropTypes.bool.isRequired,
-  toggleFab: PropTypes.func.isRequired,
-  closeFab: PropTypes.func,
-
   loggedIn: PropTypes.bool,
-
-  showErrorModal: PropTypes.bool.isRequired,
-  closeErrorModal: PropTypes.func.isRequired,
-
-  showLoggedInModal: PropTypes.bool.isRequired,
-  closeLoggedInModal: PropTypes.func.isRequired,
-
+  error: PropTypes.bool,
   errorMessage: PropTypes.string,
 
   logInWithFacebook: PropTypes.func.isRequired,
