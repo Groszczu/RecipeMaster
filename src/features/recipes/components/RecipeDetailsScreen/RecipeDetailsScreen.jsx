@@ -1,12 +1,12 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { ScrollView, View, Image, TouchableOpacity } from 'react-native';
-import Paragraph from '../../../../components/Paragraph';
+import Paragraph from '~/components/Paragraph';
 import styles from './styles';
-import Section from '../../../../components/Section';
-import shared from '../../../../styles/shared';
-import AlertModal from '../../../../components/AlertModal';
-import useModalState from '../../../../hooks/useModalState';
+import Section from '~/components/Section';
+import shared from '~/styles/shared';
+import AlertModal from '~/components/AlertModal';
+import useModalState from '~/hooks/useModalState';
 
 const RecipeDetailsScreen = ({
   recipe,
@@ -74,7 +74,7 @@ const RecipeDetailsScreen = ({
         </Section>
         <Section title={'Images'} contentWidth={'92%'}>
           <View style={styles.imagesContainer}>
-            {imgs.map((url) => (
+            {imgs.map((url, i) => (
               <TouchableOpacity
                 key={url}
                 onPress={() => {
@@ -83,7 +83,11 @@ const RecipeDetailsScreen = ({
                 }}
                 style={styles.imageWrapper}
               >
-                <Image source={{ uri: url }} style={styles.image} />
+                <Image
+                  source={{ uri: url }}
+                  style={styles.image}
+                  accessibilityLabel={`${title} image ${i + 1}`}
+                />
               </TouchableOpacity>
             ))}
           </View>
@@ -95,18 +99,18 @@ const RecipeDetailsScreen = ({
 
 RecipeDetailsScreen.propTypes = {
   recipe: PropTypes.shape({
-    title: PropTypes.string,
+    title: PropTypes.string.isRequired,
     description: PropTypes.string,
-    ingredient: PropTypes.arrayOf(PropTypes.string),
-    preparing: PropTypes.arrayOf(PropTypes.string),
-    imgs: PropTypes.arrayOf(PropTypes.string),
+    ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
+    preparing: PropTypes.arrayOf(PropTypes.string).isRequired,
+    imgs: PropTypes.arrayOf(PropTypes.string).isRequired,
   }).isRequired,
 
   saved: PropTypes.bool,
   error: PropTypes.bool,
   errorMessage: PropTypes.string,
 
-  saveToCameraRoll: PropTypes.func,
+  saveToCameraRoll: PropTypes.func.isRequired,
 };
 
 export default RecipeDetailsScreen;

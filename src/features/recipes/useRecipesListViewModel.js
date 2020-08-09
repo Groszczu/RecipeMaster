@@ -20,7 +20,10 @@ const useRecipesViewModel = () => {
 
   const fetchRecipes = () => dispatch(getRecipesAction());
   const navigateToRecipe = (recipe) =>
-    navigation.navigate('Recipe', { id: recipe.id, title: recipe.title });
+    navigation.navigate('RecipeDetails', {
+      id: recipe.id,
+      title: recipe.title,
+    });
 
   useEffect(() => {
     fetchRecipes();

@@ -14,7 +14,7 @@ import {
 import styles from './styles';
 import FloatingActionButtonItem from './FloatingActionButtonItem';
 
-const plusIcon = require('./../../../assets/plusIcon.png');
+const plusIcon = require('~/images/plusIcon.png');
 
 const FloatingActionButton = ({
   open,

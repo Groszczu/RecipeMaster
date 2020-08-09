@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { ScrollView, RefreshControl } from 'react-native';
 import styles from './styles';
 import RecipeCard from './RecipeCard';
-import shared from '../../../../styles/shared';
-import AlertModal from '../../../../components/AlertModal';
-import useModalState from '../../../../hooks/useModalState';
+import shared from '~/styles/shared';
+import AlertModal from '~/components/AlertModal';
+import useModalState from '~/hooks/useModalState';
 
 const RecipesListScreen = ({
   recipes,

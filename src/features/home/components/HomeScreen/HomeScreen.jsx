@@ -2,16 +2,16 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { View, Image } from 'react-native';
 import Logo from '../Logo/Logo';
-import FloatingActionButton from '../../../../components/FloatingActionButton';
+import FloatingActionButton from '~/components/FloatingActionButton';
 import styles from './styles';
 import { FontAwesome } from '@expo/vector-icons';
-import colors from '../../../../styles/colors';
-import shared from '../../../../styles/shared';
-import { scale } from '../../../../styles/scale';
-import AlertModal from '../../../../components/AlertModal';
-import useModalState from '../../../../hooks/useModalState';
+import colors from '~/styles/colors';
+import shared from '~/styles/shared';
+import { scale } from '~/styles/scale';
+import AlertModal from '~/components/AlertModal';
+import useModalState from '~/hooks/useModalState';
 
-const featureIcon = require('../../../../../assets/feature.png');
+const featureIcon = require('~/images/feature.png');
 
 const HomeScreen = ({
   loggedIn,

@@ -1,7 +1,7 @@
 import { ofType } from 'redux-observable';
 import { map, withLatestFrom, filter, mergeMapTo } from 'rxjs/operators';
 import { logIn, logInSuccessful, logInError } from './userSlice';
-import facebook from '../../services/facebook';
+import facebook from '~/services/facebook';
 import { getIsLoggedIn } from './selectors';
 
 export const logInEpic = (action$, state$) =>

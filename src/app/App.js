@@ -7,44 +7,46 @@ import { registerRootComponent } from 'expo';
 import { Provider } from 'react-redux';
 
 import store from './store';
-import colors from '../styles/colors';
-import HomeScreen from '../features/home/components/HomeScreen';
-import RecipesListScreen from '../features/recipes/components/RecipesListScreen';
-import RecipeDetailsScreen from '../features/recipes/components/RecipeDetailsScreen';
-import LoggedUserFooter from '../features/user/components/LoggedUserFooter';
-import { verticalScale } from '../styles/scale';
-import { HEADER_HIGHT } from '../styles/shared';
+import colors from '~/styles/colors';
+import HomeScreen from '~/features/home/components/HomeScreen';
+import RecipesListScreen from '~/features/recipes/components/RecipesListScreen';
+import RecipeDetailsScreen from '~/features/recipes/components/RecipeDetailsScreen';
+import LoggedUserFooter from '~/features/user/components/LoggedUserFooter';
+import { verticalScale } from '~/styles/scale';
+import { HEADER_HIGHT } from '~/styles/shared';
 
 const Stack = createStackNavigator();
 
 function App() {
   return (
-  <Provider store={store}>
-    <NavigationContainer style={styles.container}>
-      <Stack.Navigator
-        initialRouteName={'Home'}
-        screenOptions={{
-          headerStyle: styles.navigationHeader,
-          headerTitleStyle: styles.navigationTitle,
-          headerTintColor: '#fff',
-        }}
-      >
-        <Stack.Screen
-          name={'Home'}
-          component={HomeScreen}
-          options={{ title: 'RecipeMaster' }}
-        />
-        <Stack.Screen name={'Recipes'} component={RecipesListScreen} />
-        <Stack.Screen
-          name={'Recipe'}
-          component={RecipeDetailsScreen}
-          options={({ route }) => ({ title: `${route.params.title} Recipe!` })}
-        />
-      </Stack.Navigator>
-      <LoggedUserFooter />
-      <StatusBar style='auto' />
-    </NavigationContainer>
-  </Provider>
+    <Provider store={store}>
+      <NavigationContainer style={styles.container}>
+        <Stack.Navigator
+          initialRouteName={'Home'}
+          screenOptions={{
+            headerStyle: styles.navigationHeader,
+            headerTitleStyle: styles.navigationTitle,
+            headerTintColor: '#fff',
+          }}
+        >
+          <Stack.Screen
+            name={'Home'}
+            component={HomeScreen}
+            options={{ title: 'RecipeMaster' }}
+          />
+          <Stack.Screen name={'RecipesList'} component={RecipesListScreen} />
+          <Stack.Screen
+            name={'RecipeDetails'}
+            component={RecipeDetailsScreen}
+            options={({ route }) => ({
+              title: `${route.params.title} Recipe!`,
+            })}
+          />
+        </Stack.Navigator>
+        <LoggedUserFooter />
+        <StatusBar style='auto' />
+      </NavigationContainer>
+    </Provider>
   );
 }
 

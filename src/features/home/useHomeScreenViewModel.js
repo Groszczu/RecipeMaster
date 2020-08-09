@@ -8,7 +8,7 @@ const useHomeScreenViewModel = () => {
   const logInWithFacebook = () => dispatch(logIn());
 
   const navigation = useNavigation();
-  const navigateToRecipes = () => navigation.navigate('Recipes');
+  const navigateToRecipes = () => navigation.navigate('RecipesList');
 
   const loggedIn = useSelector(getIsLoggedIn);
   const error = useSelector(getIsError);

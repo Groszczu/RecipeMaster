@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, ImageBackground } from 'react-native';
-import Header from '../../../../components/Header';
-import CircleView from '../../../../components/CircleView';
+import Header from '~/components/Header';
+import CircleView from '~/components/CircleView';
 import styles from './styles';
 
-const backgroundImg = require('../../../../../assets/RecipeMasterLogo.jpg');
+const backgroundImg = require('~/images/RecipeMasterLogo.jpg');
 
 const Logo = ({ style }) => {
   return (

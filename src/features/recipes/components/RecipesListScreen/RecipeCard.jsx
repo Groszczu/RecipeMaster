@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { View, Image, StyleSheet, TouchableOpacity } from 'react-native';
-import Header from '../../../../components/Header';
-import colors from '../../../../styles/colors';
-import shared from '../../../../styles/shared';
+import Header from '~/components/Header';
+import colors from '~/styles/colors';
+import shared from '~/styles/shared';
 
 const RecipeCard = ({ recipe, onPress }) => {
   const { title, imgs } = recipe;
