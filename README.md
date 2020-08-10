@@ -1,2 +1,2 @@
 # RecipeMaster
-Android application for browsing recipes, build with React-Native and Expo.
+Android application for browsing recipes, built with React-Native and Expo.
