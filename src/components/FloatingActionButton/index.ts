@@ -1,3 +1,3 @@
-import FloatingActionButton from './FloatingActionButton';
+import FAB from './FAB';
 
-export default FloatingActionButton;
+export default FAB;
