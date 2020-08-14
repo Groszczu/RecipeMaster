@@ -41,10 +41,12 @@
   "devDependencies": {
     "@babel/core": "^7.8.6",
     "@testing-library/react-native": "^7.0.1",
+    "@types/jest": "^26.0.9",
     "@types/react-native": "^0.63.8",
     "babel-preset-expo": "~8.1.0",
-    "jest": "^26.2.2",
-    "jest-expo": "^38.0.2"
+    "jest": "^26.4.0",
+    "jest-expo": "^38.0.2",
+    "ts-jest": "^26.2.0"
   },
   "private": true,
   "jest": {
@@ -56,7 +58,16 @@
       "^.+\\.[jt]sx?$": "babel-jest"
     },
     "setupFiles": [
-      "./jestSetup.js"
+      "<rootDir>/jestSetup.js"
+    ],
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
     ]
   }
 }

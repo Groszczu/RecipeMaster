@@ -1,26 +1,25 @@
 import React from 'react';
 import { render } from 'testUtils';
-import HomeScreen from './HomeScreen';
+import HomeScreen, { HomeScreenProps } from './HomeScreen';
 
 const mockFn = jest.fn();
+const mockProps: HomeScreenProps = {
+  loggedIn: false,
+  error: false,
+  navigateToRecipes: mockFn,
+  logInWithFacebook: mockFn,
+};
 
 describe('HomeScreen component', () => {
   it('should render', () => {
-    render(
-      <HomeScreen navigateToRecipes={mockFn} logInWithFacebook={mockFn} />
-    );
+    render(<HomeScreen {...mockProps} />);
   });
 
   it('should show error message on error', async () => {
     const errorMessage = 'Test error';
 
     const { getByText } = render(
-      <HomeScreen
-        error={true}
-        errorMessage={errorMessage}
-        navigateToRecipes={mockFn}
-        logInWithFacebook={mockFn}
-      />
+      <HomeScreen {...{ ...mockProps, error: true, errorMessage }} />
     );
 
     expect(getByText(errorMessage)).toBeTruthy();
@@ -28,11 +27,7 @@ describe('HomeScreen component', () => {
 
   it('should show logged in message', async () => {
     const { getByText } = render(
-      <HomeScreen
-        loggedIn={true}
-        navigateToRecipes={mockFn}
-        logInWithFacebook={mockFn}
-      />
+      <HomeScreen {...{ ...mockProps, loggedIn: true }} />
     );
 
     expect(getByText('Logged in successfully')).toBeTruthy();

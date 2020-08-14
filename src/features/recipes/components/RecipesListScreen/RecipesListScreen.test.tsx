@@ -1,43 +1,41 @@
 import React from 'react';
 import { render } from 'testUtils';
 
-import RecipesListScreen from './RecipesListScreen';
+import RecipesListScreen, { RecipesListScreenProps } from './RecipesListScreen';
 import { fireEvent } from '@testing-library/react-native';
+import { RecipeModel } from '@features/recipes/RecipeModel';
 
 const mockFn = jest.fn();
-const mockRecipes = [
+
+const mockRecipes: RecipeModel[] = [
   {
     id: 1,
-    title: 'RecipeTitle',
+    title: 'recipe',
     description: '',
-    ingredients: [],
-    preparing: [],
-    imgs: [],
+    ingredients: [] as string[],
+    preparing: [] as string[],
+    imgs: [] as string[],
   },
 ];
 
+const mockProps: RecipesListScreenProps = {
+  error: false,
+  loading: false,
+  recipes: mockRecipes,
+  fetchRecipes: mockFn,
+  navigateToRecipe: mockFn,
+};
+
 describe('RecipesListScreen component', () => {
   it('should render', () => {
-    render(
-      <RecipesListScreen
-        recipes={mockRecipes}
-        fetchRecipes={mockFn}
-        navigateToRecipe={mockFn}
-      />
-    );
+    render(<RecipesListScreen {...mockProps} />);
   });
 
   it('should show error message on error', () => {
     const errorMessage = 'Test error';
 
     const { getByText } = render(
-      <RecipesListScreen
-        recipes={mockRecipes}
-        error={true}
-        errorMessage={errorMessage}
-        fetchRecipes={mockFn}
-        navigateToRecipe={mockFn}
-      />
+      <RecipesListScreen {...{ ...mockProps, error: true, errorMessage }} />
     );
     expect(getByText(errorMessage)).toBeTruthy();
   });
@@ -49,9 +47,11 @@ describe('RecipesListScreen component', () => {
 
     const { getByText } = render(
       <RecipesListScreen
-        recipes={[mockRecipe]}
-        fetchRecipes={mockFn}
-        navigateToRecipe={mockNavigate}
+        {...{
+          ...mockProps,
+          recipes: [mockRecipe],
+          navigateToRecipe: mockNavigate,
+        }}
       />
     );
 

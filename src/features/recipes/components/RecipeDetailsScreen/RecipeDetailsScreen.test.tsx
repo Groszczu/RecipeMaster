@@ -1,34 +1,40 @@
 import React from 'react';
-import { render } from '~/testUtils';
+import { render } from 'testUtils';
 import { fireEvent } from '@testing-library/react-native';
 
-import RecipeDetailsScreen from './RecipeDetailsScreen';
+import RecipeDetailsScreen, {
+  RecipeDetailsScreenProps,
+} from './RecipeDetailsScreen';
+import { RecipeModel } from '@features/recipes/RecipeModel';
 
 const mockFn = jest.fn();
-const mockRecipe = {
+const mockRecipe: RecipeModel = {
+  id: 1,
   title: 'recipe',
-  ingredients: [],
-  preparing: [],
-  imgs: [],
+  description: '',
+  ingredients: [] as string[],
+  preparing: [] as string[],
+  imgs: [] as string[],
+};
+
+const mockProps: RecipeDetailsScreenProps = {
+  error: false,
+  saving: false,
+  saved: false,
+  recipe: mockRecipe,
+  saveToCameraRoll: mockFn,
 };
 
 describe('RecipeDetailsScreen component', () => {
   it('should render', () => {
-    render(
-      <RecipeDetailsScreen recipe={mockRecipe} saveToCameraRoll={mockFn} />
-    );
+    render(<RecipeDetailsScreen {...mockProps} />);
   });
 
   it('should show error message on error', async () => {
     const errorMessage = 'Test error';
 
     const { getByText } = render(
-      <RecipeDetailsScreen
-        recipe={mockRecipe}
-        error={true}
-        errorMessage={errorMessage}
-        saveToCameraRoll={mockFn}
-      />
+      <RecipeDetailsScreen {...{ ...mockProps, error: true, errorMessage }} />
     );
 
     expect(getByText(errorMessage)).toBeTruthy();
@@ -36,11 +42,7 @@ describe('RecipeDetailsScreen component', () => {
 
   it('should show success message after saving picture', async () => {
     const { getByText } = render(
-      <RecipeDetailsScreen
-        recipe={mockRecipe}
-        saved={true}
-        saveToCameraRoll={mockFn}
-      />
+      <RecipeDetailsScreen {...{ ...mockProps, saved: true }} />
     );
 
     expect(getByText('Picture saved')).toBeTruthy();
@@ -49,12 +51,11 @@ describe('RecipeDetailsScreen component', () => {
   it('should ask to save the image on image press', async () => {
     const mockRecipeWithImages = {
       ...mockRecipe,
-      imgs: ['~/images/RecipeMasterLogo.jpg'],
+      imgs: ['@images/RecipeMasterLogo.jpg'],
     };
     const { getByText, getByA11yLabel } = render(
       <RecipeDetailsScreen
-        recipe={mockRecipeWithImages}
-        saveToCameraRoll={mockFn}
+        {...{ ...mockProps, recipe: mockRecipeWithImages }}
       />
     );
 
@@ -64,7 +65,7 @@ describe('RecipeDetailsScreen component', () => {
   });
 
   it('should call saveToCameraRoll with image url on confirming image save', () => {
-    const imageUrl = '~/images/RecipeMasterLogo.jpg';
+    const imageUrl = '@images/RecipeMasterLogo.jpg';
     const mockRecipeWithImages = {
       ...mockRecipe,
       imgs: [imageUrl],
@@ -73,8 +74,7 @@ describe('RecipeDetailsScreen component', () => {
 
     const { getByText, getByA11yLabel } = render(
       <RecipeDetailsScreen
-        recipe={mockRecipeWithImages}
-        saveToCameraRoll={mockSaveToCameraRoll}
+        {...{ ...mockProps, recipe: mockRecipeWithImages, saveToCameraRoll: mockSaveToCameraRoll }}
       />
     );
 
