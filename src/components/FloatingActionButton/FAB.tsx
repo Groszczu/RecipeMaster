@@ -31,7 +31,7 @@ export interface FABItemProps {
 }
 
 interface FABComposition {
-    Item: React.FC<FABItemProps>;
+  Item: React.FC<FABItemProps>;
 }
 
 const FAB: React.FC<FABProps> & FABComposition = ({
@@ -40,7 +40,7 @@ const FAB: React.FC<FABProps> & FABComposition = ({
   style,
   animationDuration,
 }) => {
-    const { width } = useWindowDimensions();
+  const { width } = useWindowDimensions();
   const [open, setOpen] = React.useState(false);
 
   const toggleFAB = () => setOpen((oldState) => !oldState);
@@ -80,7 +80,10 @@ const FAB: React.FC<FABProps> & FABComposition = ({
       >
         <View style={[styles.container, style]}>
           <Animated.View
-            style={[styles.itemsContainer, { transform: [{ translateX: itemsPositionAnimation }] }]}
+            style={[
+              styles.itemsContainer,
+              { transform: [{ translateX: itemsPositionAnimation }] },
+            ]}
           >
             {open && children}
           </Animated.View>
@@ -101,12 +104,7 @@ const FAB: React.FC<FABProps> & FABComposition = ({
   );
 };
 
-FAB.Item = ({
-  label,
-  backgroundColor,
-  icon,
-  onPress,
-}) => {
+FAB.Item = ({ label, backgroundColor, icon, onPress }) => {
   return (
     <View style={[itemStyles.container]}>
       {label && (
